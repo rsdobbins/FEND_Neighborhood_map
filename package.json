@@ -1,0 +1,37 @@
+{
+  "name": "trestle-2017",
+  "version": "1.0.0",
+  "description": "trestle bike park rebuild",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "browser-sync": "^2.18.8",
+    "critical": "^0.8.4",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-cache": "^0.4.6",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-imagemin": "^3.1.1",
+    "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^2.1.0",
+    "gulp-useref": "^3.1.2",
+    "gulp-util": "^3.0.8",
+    "merge-stream": "^1.0.1",
+    "netlify-cli": "^1.2.0",
+    "run-sequence": "^1.2.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Intrawest/trestle-2017.git"
+  },
+  "author": "Ryan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Intrawest/trestle-2017/issues"
+  },
+  "homepage": "https://github.com/Intrawest/trestle-2017#readme"
+}

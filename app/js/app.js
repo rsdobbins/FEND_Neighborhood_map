@@ -4,43 +4,6 @@ var map;
 var marker; 
 var setVisbile;
 
-function initMap(){
-    // Create a google map with id, center position and zoom level
-  map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 5,
-    center: new google.maps.LatLng(39.386, -97.915),
-    mapTypeId: google.maps.MapTypeId.TERRAIN,
-  });
-
-        for (var i = 0; i < viewModel.resorts.length; i++) {
-            var self = viewModel.resorts[i];
-
-            viewModel.resorts[i].marker = new google.maps.Marker({
-                position: new google.maps.LatLng(self.lng, self.lat),
-                map: map,
-                name: self.name,
-            });
-        };
-
-
-  marker.addListener('click', function() {
-    infowindow.open(map, marker);
-  });
-}
-
-/*
-var toggleBounce = function(marker)  {
-        if (marker.getAnimation() !== null) {
-            marker.setAnimation(null);
-        } else {
-            marker.setAnimation(google.maps.Animation.BOUNCE);
-            setTimeout (function () {
-            marker.setAnimation(null)
-            }, 2000);
-        }
-    }; 
-    */
-
 var point = function(name, lng, lat, foursquareID, marker) {
     var self = this;
     this.name = name;
@@ -66,6 +29,7 @@ var viewModel = {
     filtered: ko.observable(''),
 };
 
+
 // open infowindow upon click of list
 this.activeMapMarker = function(name) {
 activeInfoWindow&&activeInfoWindow.close();
@@ -90,9 +54,46 @@ viewModel.filteredResorts = ko.computed(function() {
             return matched;
         });
     }, viewModel);
+    
+function initMap(){
+map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 5,
+                center: new google.maps.LatLng(39.386, -97.915),
+                mapTypeId: google.maps.MapTypeId.TERRAIN,
+        });
 
+        for (var i = 0; i < viewModel.resorts.length; i++) {
+            var self = viewModel.resorts[i];
+
+            viewModel.resorts[i].marker = new google.maps.Marker({
+                position: new google.maps.LatLng(self.lng, self.lat),
+                map: map,
+                name: self.name,
+            });
+        };
+        var infoWindow = new google.maps.InfoWindow({
+          content: this.name
+        });
+/*
+marker.addListener('click', function() {
+activeInfoWindow&&activeInfoWindow.close();
+infoWindow.open(map, marker);
+activeInfoWindow = infoWindow;
+toggleBounce(marker);
+    });
+var toggleBounce = function(marker)  {
+        if (marker.getAnimation() !== null) {
+            marker.setAnimation(null);
+        } else {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+            setTimeout (function () {
+            marker.setAnimation(null)
+            }, 2000);
+        }
+    }; 
+    */
 
 
 ko.applyBindings(viewModel);
+}
 
-    

@@ -3,6 +3,10 @@ var toggleBounce;
 var map;
 var marker; 
 var setVisbile;
+var infowindow;
+var map;
+var openInfowindow;
+var lastSelected;
 
 var point = function(name, lng, lat, foursquareID, marker) {
     var self = this;
@@ -33,8 +37,8 @@ var viewModel = {
 // open infowindow upon click of list
 this.activeMapMarker = function(name) {
 activeInfoWindow&&activeInfoWindow.close();
-infoWindow.open(map, marker);
-activeInfoWindow = infoWindow;
+infowindow.open(map, marker);
+activeInfoWindow = infowindow;
 
 };
 
@@ -61,8 +65,9 @@ map = new google.maps.Map(document.getElementById('map'), {
                 center: new google.maps.LatLng(39.386, -97.915),
                 mapTypeId: google.maps.MapTypeId.TERRAIN,
         });
-
-        for (var i = 0; i < viewModel.resorts.length; i++) {
+        var infowindow = new google.maps.InfoWindow({
+    });
+    for (var i = 0; i < viewModel.resorts.length; i++) {
             var self = viewModel.resorts[i];
 
             viewModel.resorts[i].marker = new google.maps.Marker({
@@ -70,29 +75,26 @@ map = new google.maps.Map(document.getElementById('map'), {
                 map: map,
                 name: self.name,
             });
-        };
-        var infoWindow = new google.maps.InfoWindow({
-          content: this.name
-        });
-/*
-marker.addListener('click', function() {
-activeInfoWindow&&activeInfoWindow.close();
-infoWindow.open(map, marker);
-activeInfoWindow = infoWindow;
-toggleBounce(marker);
-    });
-var toggleBounce = function(marker)  {
-        if (marker.getAnimation() !== null) {
-            marker.setAnimation(null);
-        } else {
-            marker.setAnimation(google.maps.Animation.BOUNCE);
-            setTimeout (function () {
-            marker.setAnimation(null)
-            }, 2000);
-        }
-    }; 
-    */
 
+            // Opens and bounces an infowindow for a marker when clicked upon.
+            openInfowindow = function (marker) {
+
+                map.panTo(marker.getPosition());
+
+                marker.setAnimation(google.maps.Animation.BOUNCE);
+                setTimeout(function() {
+                    marker.setAnimation(null);
+                }, 2000);
+
+                infowindow.setContent(marker.name);
+                infowindow.open(map,marker);                
+            };
+
+            // Event listener opens infowindow upon being clicked.
+            this.addListener = google.maps.event.addListener(self.marker,'click', function() {
+                openInfowindow(this);
+            });
+        }
 
 ko.applyBindings(viewModel);
 }

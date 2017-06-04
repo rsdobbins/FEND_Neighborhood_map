@@ -56,7 +56,7 @@ li.list-group-item:hover {
     <div id="map"></div> 
       </div>
       <div class="col-sm-3 nopadding">
-<input placeholder="search" data-bind="value: filter, valueUpdate: 'afterkeydown'" />
+<input placeholder="search" data-bind="value: filtered, valueUpdate: 'afterkeydown'" />
 <ul id="list" data-bind="foreach: filteredResorts">
   <li data-bind="click: activeMapMarker" class="list-group-item">            
                 <p><span data-bind="text: name"></span></p>

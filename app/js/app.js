@@ -7,6 +7,7 @@ var infowindow;
 var map;
 var openInfowindow;
 var lastSelected;
+var bounds;
 
 var point = function(name, lng, lat, foursquareID, marker) {
     var self = this;
@@ -59,8 +60,8 @@ viewModel.filteredResorts = ko.computed(function() {
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 5,
-        center: new google.maps.LatLng(39.386, -97.915),
-        mapTypeId: google.maps.MapTypeId.TERRAIN,
+        center: new google.maps.LatLng(38.941834, -89.532451),
+        mapTypeId: google.maps.MapTypeId.ROAD,
     });
     var infowindow = new google.maps.InfoWindow({});
     for (var i = 0; i < viewModel.resorts.length; i++) {
@@ -72,10 +73,12 @@ function initMap() {
             name: self.name,
         });
 
-        // Opens and bounces an infowindow for a marker when clicked upon.
-        openInfowindow = function(marker) {
 
-            map.panTo(marker.getPosition());
+        // Opens and bounces an infowindow for a marker when clicked upon.
+        openInfoWindow = function(marker) {
+
+            map.setCenter(marker.getPosition());
+            map.setZoom(13);
 
             marker.setAnimation(google.maps.Animation.BOUNCE);
             setTimeout(function() {
@@ -88,9 +91,24 @@ function initMap() {
 
         // Event listener opens infowindow upon being clicked.
         this.addListener = google.maps.event.addListener(self.marker, 'click', function() {
-            openInfowindow(this);
+            openInfoWindow(this);
         });
     }
+//Create new bounds object
+ var bounds = new google.maps.LatLngBounds();
+ //Loop through an array of points, add them to bounds
+ for (var i = 0; i < viewModel.resorts.length; i++) {
+     var self = viewModel.resorts[i];
+      var geoCode = new google.maps.LatLng(self.lng, self.lat);
+      bounds.extend(geoCode); 
+  }
+  //Add new bounds object to map
+  map.fitBounds(bounds);
 
     ko.applyBindings(viewModel);
+    
+    $("#reset_state").click(function() {
+      infowindow.close();
+      map.fitBounds(bounds);
+    });
 }

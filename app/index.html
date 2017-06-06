@@ -18,6 +18,7 @@
                 <div id="map"></div>
             </div>
             <div class="col-sm-3 fixed-mobile nopadding">
+              <form>
                 <input class="search-bar" placeholder="search" data-bind="value: filtered, valueUpdate: 'afterkeydown'" />
                 <ul id="list" data-bind="foreach: filteredResorts">
                     <li data-bind="click: activeMapMarker" class="list-group-item">
@@ -25,7 +26,8 @@
                         </p>
                     </li>
                 </ul>
-                <input type="button" id="reset_state" value="RESET MAP" />
+                <input type="button" value="RESET MAP" data-bind="click: resetMarkers" />
+              </form>
             </div>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

@@ -70,21 +70,9 @@ gulp.task('default', function(callback) {
   )
 })
 
-gulp.task('critical', function (cb) {
-    critical.generate({
-        inline: true,
-        base: 'dist/',
-        src: 'index.html',
-        dest: 'index.html',
-        minify: true,
-        width: 320,
-        height: 480
-    });
-});
-
 gulp.task('build', function(callback) {
   runSequence(
-    ['useref', 'critical', 'copy', 'images',],
+    ['useref', 'copy', 'images',],
     callback
   )
 })

@@ -89,7 +89,7 @@ function initMap() {
                 success: function(data) {
                     console.log(data);
                     var excerpt = data.query.pages[Object.keys(data.query.pages)[0]].extract;
-                    infowindow.setContent('<div><a href=' + marker.webUrl + '><h4 class="marker-name">' + marker.name + '</h4></a><p id="wikiExcert">' + excerpt + '</p><a href=' + wikiUrl + '>more</a><br><br>From ' + '<a href=' + wikiUrl + '>Wikipedia</a>, the free encyclopedia.' + '</div>');
+                    infowindow.setContent('<div><a href=' + marker.webUrl + '><h4>' + marker.name + '</h4></a><p id="wikiExcerpt">' + excerpt + '</p><a href=' + wikiUrl + '>more</a><br><br>From ' + '<a href=' + wikiUrl + '>Wikipedia</a>, the free encyclopedia.' + '</div>');
                     clearTimeout(wikiError);
                 }
             })

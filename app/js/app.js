@@ -88,6 +88,8 @@ function initMap() {
             var wikiError = setTimeout(function() {
                 $wikiExcerpt.text("Filed to load info");
             }, 8000);
+           
+           //wiki JSONP call referenced fro classwork
             $.ajax({
                 url: wikiUrl,
                 dataType: 'jsonp',
@@ -115,12 +117,12 @@ function initMap() {
     //Add new bounds object to map
     map.fitBounds(bounds);
     ko.applyBindings(viewModel);
-    
+    //TODO reset teh list input on click. 
     $("#reset_state").click(function() {
         infowindow.close();
         map.fitBounds(bounds);
     });
-    // Added function to show alert box when Google Maps request fails 
+    // Show alert when Google Maps request fails 
 function googleError() {
   alert("Map did not load");  
 }

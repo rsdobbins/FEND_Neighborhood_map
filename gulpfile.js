@@ -84,7 +84,7 @@ gulp.task('critical', function (cb) {
 
 gulp.task('build', function(callback) {
   runSequence(
-    ['useref', 'copy', 'images',],
+    ['useref', 'critical', 'copy', 'images',],
     callback
   )
 })

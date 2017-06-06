@@ -1,7 +1,12 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <style>
       #map {
@@ -47,10 +52,24 @@ background-color: rgb(30, 133, 216);
   #map{
     height: 50vh;
   }
+  #list{
+    height: calc(40vh - 50px);
+    overflow: scroll;
+  }
+  input#reset_state {
+    position: fixed;
+    bottom: 0;
+}
+.fixed-mobile{
+height: 50vh;
+}
+input{
+  border-radius: 0;
+  border: 0;
+}
 }
     </style>
-        <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" src="/css/bootstrap,min.css">
+
   </head>
   <body>
     <div class="container-fluid">
@@ -58,8 +77,8 @@ background-color: rgb(30, 133, 216);
       <div class="col-sm-9 nopadding">
     <div id="map"></div> 
       </div>
-      <div class="col-sm-3 nopadding">
-<input placeholder="search" data-bind="value: filtered, valueUpdate: 'afterkeydown'" />
+      <div class="col-sm-3 fixed-mobile nopadding">
+<input class="search-bar" placeholder="search" data-bind="value: filtered, valueUpdate: 'afterkeydown'" />
 <ul id="list" data-bind="foreach: filteredResorts">
   <li data-bind="click: activeMapMarker" class="list-group-item">            
                 <p><span data-bind="text: name"></span></p>
@@ -73,6 +92,6 @@ background-color: rgb(30, 133, 216);
 <script src="/js/bootstrap.min.js" async></script>
 <script src="/js/knockout-3.4.2.js" async></script>
 <script src="/js/app.js" async></script>
-<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAF-bVwWT5R9pVEqohsCsAoXuOWXbi8cOI&callback=initMap"></script>
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmr2VhYjW7IinmEhlT--f0X-_V6r5GAq0&callback=initMap"></script>
   </body>
 </html>

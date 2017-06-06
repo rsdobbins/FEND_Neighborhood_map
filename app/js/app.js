@@ -57,12 +57,20 @@ function initMap() {
         center: new google.maps.LatLng(38.941834, -89.532451),
         mapTypeId: google.maps.MapTypeId.ROAD,
     });
+    var iconMtn = {
+    url: '/img/icon_mtn.png',
+    size: new google.maps.Size(32, 22),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(0, 22)
+  };
     var infowindow = new google.maps.InfoWindow({});
     for (var i = 0; i < viewModel.resorts.length; i++) {
         var self = viewModel.resorts[i];
         viewModel.resorts[i].marker = new google.maps.Marker({
             position: new google.maps.LatLng(self.lng, self.lat),
             map: map,
+            animation: google.maps.Animation.DROP,
+            icon: iconMtn,
             name: self.name,
             wikiID: self.wikiID,
             webUrl: self.webUrl,

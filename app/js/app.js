@@ -1,14 +1,7 @@
-var toggleBounce;
 var map;
 var marker;
-var setVisbile;
-var infowindow;
-var map;
-var openInfowindow;
-var lastSelected;
-var bounds;
-var wikiID;
-var webUrl;
+
+
 var point = function(name, lng, lat, wikiid, webUrl) {
     var self = this;
     this.name = name;

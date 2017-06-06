@@ -1,14 +1,7 @@
-var toggleBounce;
 var map;
 var marker;
-var setVisbile;
-var infowindow;
-var map;
-var openInfowindow;
-var lastSelected;
-var bounds;
-var wikiID;
-var webUrl;
+
+
 var point = function(name, lng, lat, wikiid, webUrl) {
     var self = this;
     this.name = name;
@@ -27,15 +20,15 @@ var viewModel = {
         new point("Tremblant Resort", 46.210167, -74.584993, "Mont_Tremblant_Resort", "https://www.tremblant.ca"),
         new point("Steamboat Resort", 40.45669502741314, -106.80609941482544, "Steamboat_Ski_Resort", "https://www.steamboat.com")
     ],
-    //observable used for running filter against resorts array
+//observable used for running filter against resorts array
     filtered: ko.observable(''),
 };
-console.log(viewModel);
+//console.log(viewModel);
 // open infowindow upon click of list
 this.activeMapMarker = function(name) {
     google.maps.event.trigger(this.marker, 'click');
 };
-//Filtering.
+//Filtering for text input
 viewModel.filteredResorts = ko.computed(function() {
     var self = this;
     var searchResult = this.filtered().toLowerCase();
@@ -51,19 +44,23 @@ viewModel.filteredResorts = ko.computed(function() {
     });
 }, viewModel);
 
+//load google map
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 5,
         center: new google.maps.LatLng(38.941834, -89.532451),
         mapTypeId: google.maps.MapTypeId.ROAD,
     });
+//custom map markers
     var iconMtn = {
     url: '/img/icon_mtn.png',
     size: new google.maps.Size(32, 22),
     origin: new google.maps.Point(0, 0),
     anchor: new google.maps.Point(0, 22)
   };
+
     var infowindow = new google.maps.InfoWindow({});
+    
     for (var i = 0; i < viewModel.resorts.length; i++) {
         var self = viewModel.resorts[i];
         viewModel.resorts[i].marker = new google.maps.Marker({
@@ -118,8 +115,13 @@ function initMap() {
     //Add new bounds object to map
     map.fitBounds(bounds);
     ko.applyBindings(viewModel);
+    
     $("#reset_state").click(function() {
         infowindow.close();
         map.fitBounds(bounds);
     });
+    // Added function to show alert box when Google Maps request fails 
+function googleError() {
+  alert("Map did not load");  
+}
 }

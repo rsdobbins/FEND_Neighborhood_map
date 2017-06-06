@@ -115,8 +115,13 @@ function initMap() {
     //Add new bounds object to map
     map.fitBounds(bounds);
     ko.applyBindings(viewModel);
+    
     $("#reset_state").click(function() {
         infowindow.close();
         map.fitBounds(bounds);
     });
+    // Added function to show alert box when Google Maps request fails 
+function googleError() {
+  alert("Map did not load");  
+}
 }

@@ -7,13 +7,16 @@ var map;
 var openInfowindow;
 var lastSelected;
 var bounds;
+var wikiID;
+var webUrl;
 
-var point = function(name, lng, lat, foursquareID, marker) {
+var point = function(name, lng, lat, wikiid, webUrl) {
     var self = this;
     this.name = name;
     this.lng = lng;
     this.lat = lat;
-    this.foursquareID = foursquareID;
+    this.wikiID = wikiid;
+    this.webUrl = webUrl;
     this.marker = marker;
 
 };
@@ -21,18 +24,18 @@ var point = function(name, lng, lat, foursquareID, marker) {
 
 var viewModel = {
     resorts: [
-        new point('Winter Park Resort', 39.886927, -105.761325, '4b3397c5f964a5202f1b25e3'),
-        new point('Snowshoe Mountain Resort', 38.410553, -79.993699, '4b5c5a4cf964a520182c29e3'),
-        new point('Stratton Mountain Resort', 43.114917, -72.906929, '4b2d94ccf964a52030d924e3'),
-        new point('Blue Mountain Resort', 44.504930, -80.309992, '4b6c4574f964a520f22c2ce3'),
-        new point('Tremblant Resort', 46.210167, -74.584993, '4bd043089854d13a2055f74d'),
-        new point('Steamboat Resort', 40.45669502741314, -106.80609941482544, '4b7712e7f964a520967a2ee3')
+        new point('Winter Park Resort', 39.886927, -105.761325, "Winter_Park_Resort", 'https://www.winterparkresort.com'),
+        new point('Snowshoe Mountain Resort', 38.410553, -79.993699, 'Snowshoe_Mountain', "https://www.snowshoemtn.com"),
+        new point('Stratton Mountain Resort', 43.114917, -72.906929, 'Stratton_Mountain_Resort', "https://www.stratton.com"),
+        new point('Blue Mountain Resort', 44.504930, -80.309992, 'Blue_Mountain_(ski_resort)', "https://www.bluemountain.ca"),
+        new point('Tremblant Resort', 46.210167, -74.584993, 'Mont_Tremblant_Resort', "https://www.tremblant.ca"),
+        new point('Steamboat Resort', 40.45669502741314, -106.80609941482544, 'Steamboat_Ski_Resort', "https://www.steamboat.com")
     ],
 
     //observable used for running filter against resorts array
     filtered: ko.observable(''),
-
 };
+console.log(viewModel);
 // open infowindow upon click of list
 this.activeMapMarker = function(name) {
     google.maps.event.trigger(this.marker, 'click');
@@ -70,6 +73,8 @@ function initMap() {
             position: new google.maps.LatLng(self.lng, self.lat),
             map: map,
             name: self.name,
+            wikiID: self.wikiID,
+            webUrl: self.webUrl,
         });
 
 
@@ -83,8 +88,31 @@ function initMap() {
             }, 2000);
             infowindow.setContent(marker.name);
             infowindow.open(map, marker);
-        };
 
+// URL of Wikipedia Article for Source Reference
+                var wikiSource = 'https://en.wikipedia.org/wiki/' + marker.wikiID;
+                console.log(wikiSource);
+                
+                // Extract taken from Wikipedia API
+                var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=1&exchars=200&titles=' + marker.wikiID + '&format=json&callback=wikiCallback';
+                
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'jsonp',
+                    data: {},
+                    url: wikiUrl
+                }).done(function(response) {
+                    console.log(wikiUrl);
+                    var extract = response.query.pages[Object.keys(response.query.pages)[0]].extract;
+
+                    infowindow.setContent('<div><a href=' + marker.webUrl + '><h4 class="marker-name">' + marker.name + '</h4></a>' + extract + '<br>Source: ' + '<a href=' + wikiSource + '>Wikipedia</a>' +'</div>');
+
+                //Set Content if failure of AJAX request
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                    infowindow.setContent('<div>' + 'Failed to load Wiki data (Please try again later)' + '</div>');
+                });
+            };
         // Event listener opens infowindow upon being clicked.
         this.addListener = google.maps.event.addListener(self.marker, 'click', function() {
             openInfoWindow(this);
@@ -99,7 +127,7 @@ function initMap() {
       bounds.extend(geoCode); 
   }
   //Add new bounds object to map
-  map.fitBounds(bounds);
+  map.fitBounds(bounds); 
 
     ko.applyBindings(viewModel);
     

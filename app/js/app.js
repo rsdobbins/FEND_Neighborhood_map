@@ -2,7 +2,7 @@ var map;
 var marker;
 
 
-var point = function(name, lng, lat, wikiid, webUrl) {
+var markerPoint = function(name, lng, lat, wikiid, webUrl) {
     var self = this;
     this.name = name;
     this.lng = lng;
@@ -13,12 +13,12 @@ var point = function(name, lng, lat, wikiid, webUrl) {
 };
 var viewModel = {
     resorts: [
-        new point("Winter Park Resort", 39.886927, -105.761325, "Winter_Park_Resort", "https://www.winterparkresort.com"),
-        new point("Snowshoe Mountain Resort", 38.410553, -79.993699, "Snowshoe_Mountain", "https://www.snowshoemtn.com"),
-        new point("Stratton Mountain Resort", 43.114917, -72.906929, "Stratton_Mountain_Resort", "https://www.stratton.com"),
-        new point("Blue Mountain Resort", 44.504930, -80.309992, "Blue_Mountain_(ski_resort)", "https://www.bluemountain.ca"),
-        new point("Tremblant Resort", 46.210167, -74.584993, "Mont_Tremblant_Resort", "https://www.tremblant.ca"),
-        new point("Steamboat Resort", 40.45669502741314, -106.80609941482544, "Steamboat_Ski_Resort", "https://www.steamboat.com")
+        new markerPoint("Winter Park Resort", 39.886927, -105.761325, "Winter_Park_Resort", "https://www.winterparkresort.com"),
+        new markerPoint("Snowshoe Mountain Resort", 38.410553, -79.993699, "Snowshoe_Mountain", "https://www.snowshoemtn.com"),
+        new markerPoint("Stratton Mountain Resort", 43.114917, -72.906929, "Stratton_Mountain_Resort", "https://www.stratton.com"),
+        new markerPoint("Blue Mountain Resort", 44.504930, -80.309992, "Blue_Mountain_(ski_resort)", "https://www.bluemountain.ca"),
+        new markerPoint("Tremblant Resort", 46.210167, -74.584993, "Mont_Tremblant_Resort", "https://www.tremblant.ca"),
+        new markerPoint("Steamboat Resort", 40.45669502741314, -106.80609941482544, "Steamboat_Ski_Resort", "https://www.steamboat.com")
     ],
     //observable used for running filter against resorts array
     filtered: ko.observable(''),
@@ -96,7 +96,7 @@ function initMap() {
                 success: function(data) {
                     console.log(data);
                     var excerpt = data.query.pages[Object.keys(data.query.pages)[0]].extract;
-                    infowindow.setContent('<div><a href=' + marker.webUrl + '><h4>' + marker.name + '</h4></a><p id="wikiExcerpt">' + excerpt + '</p><a href=' + wikiSourceUrl + '>more</a><br><br>From ' + '<a href=' + wikiSourceUrl + '>Wikipedia</a>, the free encyclopedia.' + '</div>');
+                    infowindow.setContent('<div><a href=' + marker.webUrl + '><h4>' + marker.name + '</h4></a><p id="wikiExcerpt">' + excerpt + '</p><a href=' + wikiSourceUrl + '>more</a><br><br>Source: ' + '<a href=' + wikiSourceUrl + '>Wikipedia</a>, the free encyclopedia.' + '</div>');
                     clearTimeout(wikiError);
                 }
             });

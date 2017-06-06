@@ -84,10 +84,12 @@ function initMap() {
             infowindow.open(map, marker);
             var wikiUrl = 'https://en.wikipedia.org/wiki/' + marker.wikiID;
             //console.log(wikiSource);
-            var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=1&exchars=150&titles=' + marker.wikiID + '&format=json&callback=wikiCallback';
+            wikiUrl = 'http://en.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=1&exchars=150&titles=' + marker.wikiID + '&format=json&callback=wikiCallback';
             var wikiError = setTimeout(function() {
                 $wikiExcerpt.text("Filed to load info");
             }, 8000);
+           
+           //wiki JSONP call referenced fro classwork
             $.ajax({
                 url: wikiUrl,
                 dataType: 'jsonp',
@@ -115,12 +117,12 @@ function initMap() {
     //Add new bounds object to map
     map.fitBounds(bounds);
     ko.applyBindings(viewModel);
-    
+    //TODO reset teh list input on click. 
     $("#reset_state").click(function() {
         infowindow.close();
         map.fitBounds(bounds);
     });
-    // Added function to show alert box when Google Maps request fails 
+    // Show alert when Google Maps request fails 
 function googleError() {
   alert("Map did not load");  
 }

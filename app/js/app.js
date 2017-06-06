@@ -20,7 +20,7 @@ var viewModel = {
         new point("Tremblant Resort", 46.210167, -74.584993, "Mont_Tremblant_Resort", "https://www.tremblant.ca"),
         new point("Steamboat Resort", 40.45669502741314, -106.80609941482544, "Steamboat_Ski_Resort", "https://www.steamboat.com")
     ],
-//observable used for running filter against resorts array
+    //observable used for running filter against resorts array
     filtered: ko.observable(''),
 };
 //console.log(viewModel);
@@ -51,16 +51,16 @@ function initMap() {
         center: new google.maps.LatLng(38.941834, -89.532451),
         mapTypeId: google.maps.MapTypeId.ROAD,
     });
-//custom map markers
+    //custom map markers
     var iconMtn = {
-    url: '/img/icon_mtn.png',
-    size: new google.maps.Size(32, 22),
-    origin: new google.maps.Point(0, 0),
-    anchor: new google.maps.Point(0, 22)
-  };
+        url: '/img/icon_mtn.png',
+        size: new google.maps.Size(32, 22),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(0, 22)
+    };
 
     var infowindow = new google.maps.InfoWindow({});
-    
+
     for (var i = 0; i < viewModel.resorts.length; i++) {
         var self = viewModel.resorts[i];
         viewModel.resorts[i].marker = new google.maps.Marker({
@@ -82,24 +82,24 @@ function initMap() {
             }, 2000);
             infowindow.setContent(marker.name);
             infowindow.open(map, marker);
-            var wikiUrl = 'https://en.wikipedia.org/wiki/' + marker.wikiID;
+            var wikiSourceUrl = 'https://en.wikipedia.org/wiki/' + marker.wikiID;
             //console.log(wikiSource);
-            var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=1&exchars=150&titles=' + marker.wikiID + '&format=json&callback=wikiCallback';
+            wikiUrl = 'http://en.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=1&exchars=150&titles=' + marker.wikiID + '&format=json&callback=wikiCallback';
             var wikiError = setTimeout(function() {
                 $wikiExcerpt.text("Filed to load info");
             }, 8000);
-           
-           //wiki JSONP call referenced fro classwork
+
+            //wiki JSONP call referenced fro classwork
             $.ajax({
                 url: wikiUrl,
                 dataType: 'jsonp',
                 success: function(data) {
                     console.log(data);
                     var excerpt = data.query.pages[Object.keys(data.query.pages)[0]].extract;
-                    infowindow.setContent('<div><a href=' + marker.webUrl + '><h4>' + marker.name + '</h4></a><p id="wikiExcerpt">' + excerpt + '</p><a href=' + wikiUrl + '>more</a><br><br>From ' + '<a href=' + wikiUrl + '>Wikipedia</a>, the free encyclopedia.' + '</div>');
+                    infowindow.setContent('<div><a href=' + marker.webUrl + '><h4>' + marker.name + '</h4></a><p id="wikiExcerpt">' + excerpt + '</p><a href=' + wikiSourceUrl + '>more</a><br><br>From ' + '<a href=' + wikiSourceUrl + '>Wikipedia</a>, the free encyclopedia.' + '</div>');
                     clearTimeout(wikiError);
                 }
-            })
+            });
         };
         // Open infowindow upon click
         this.addListener = google.maps.event.addListener(self.marker, 'click', function() {
@@ -109,8 +109,8 @@ function initMap() {
     //Map bounds object
     var bounds = new google.maps.LatLngBounds();
     //Loop through an array of points, add them to bounds
-    for (var i = 0; i < viewModel.resorts.length; i++) {
-        var self = viewModel.resorts[i];
+    for (i = 0; i < viewModel.resorts.length; i++) {
+        self = viewModel.resorts[i];
         var geoCode = new google.maps.LatLng(self.lng, self.lat);
         bounds.extend(geoCode);
     }
@@ -123,7 +123,7 @@ function initMap() {
         map.fitBounds(bounds);
     });
     // Show alert when Google Maps request fails 
-function googleError() {
-  alert("Map did not load");  
-}
+    function googleError() {
+        alert("Map did not load");
+    }
 }

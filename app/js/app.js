@@ -85,22 +85,29 @@ function initMap() {
             var wikiSourceUrl = 'https://en.wikipedia.org/wiki/' + marker.wikiID;
             //console.log(wikiSource);
             wikiUrl = 'http://en.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=1&exchars=150&titles=' + marker.wikiID + '&format=json&callback=wikiCallback';
-            var wikiError = setTimeout(function() {
-                $wikiExcerpt.text("Filed to load info");
-            }, 8000);
+
 
             //wiki JSONP call referenced fro classwork
             $.ajax({
                 url: wikiUrl,
                 dataType: 'jsonp',
-                success: function(data) {
-                    console.log(data);
-                    var excerpt = data.query.pages[Object.keys(data.query.pages)[0]].extract;
-                    infowindow.setContent('<div><a href=' + marker.webUrl + '><h4>' + marker.name + '</h4></a><p id="wikiExcerpt">' + excerpt + '</p><a href=' + wikiSourceUrl + '>more</a><br><br>Source: ' + '<a href=' + wikiSourceUrl + '>Wikipedia</a>, the free encyclopedia.' + '</div>');
-                    clearTimeout(wikiError);
-                }
+            }).done(function(data) {
+                console.log(data);
+                var excerpt = data.query.pages[Object.keys(data.query.pages)[0]].extract;
+                infowindow.setContent('<div><a href=' + marker.webUrl + '><h4>' + marker.name + '</h4></a><p id="wikiExcerpt">' + excerpt + '</p><a href=' + wikiSourceUrl + '>more</a><br><br>Source: ' + '<a href=' + wikiSourceUrl + '>Wikipedia</a>, the free encyclopedia.' + '</div>');
+            }).fail(function(jqXHR, textStatus) {
+                alert("Failed to load Wikpedia Content");
             });
         };
+
+        $.ajax({
+            // ajax settings
+        }).done(function(data) {
+            // successful
+        }).fail(function(jqXHR, textStatus) {
+            // error handling
+        });
+
         // Open infowindow upon click
         this.addListener = google.maps.event.addListener(self.marker, 'click', function() {
             openInfoWindow(this);

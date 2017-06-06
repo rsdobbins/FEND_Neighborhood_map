@@ -1,22 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <style>
       #map {
+            width: 100%;
             height: 100vh;
-            width:100%;
+           
       }
       #list{
-        height: 100%;
+        width:100%;
         padding: 0;
       }
       html, body {
@@ -41,9 +35,22 @@
 li.list-group-item:hover {
     color:#2da17d;
 }
+input#reset_state {
+    background-color: #2196F3;
+    border: 0;
+    color: #fff;
+}
+input#reset_state:hover {
+background-color: rgb(30, 133, 216);
+}
+@media screen and (max-width: 767px){
+  #map{
+    height: 50vh;
+  }
+}
     </style>
-
-
+        <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" src="/css/bootstrap,min.css">
   </head>
   <body>
     <div class="container-fluid">
@@ -58,10 +65,12 @@ li.list-group-item:hover {
                 <p><span data-bind="text: name"></span></p>
     </li>
 </ul>
-<input type="button" id="reset_state" value="reset" />
+<input type="button" id="reset_state" value="RESET MAP" />
       </div>
       </div>
+<!-- Latest compiled and minified JavaScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js" async></script>
 <script src="/js/knockout-3.4.2.js" async></script>
 <script src="/js/app.js" async></script>
 <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAF-bVwWT5R9pVEqohsCsAoXuOWXbi8cOI&callback=initMap"></script>

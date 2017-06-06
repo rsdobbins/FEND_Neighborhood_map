@@ -65,7 +65,7 @@ gulp.task('images', function() {
 // ---------------
 
 gulp.task('default', function(callback) {
-  runSequence(['browserSync'], 'watch',
+  runSequence(['browserSync'], ['useref', 'copy', 'images',], 'watch',
     callback
   )
 })

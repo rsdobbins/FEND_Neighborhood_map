@@ -1,4 +1,3 @@
-var activeInfoWindow;
 var toggleBounce;
 var map;
 var marker;
@@ -76,15 +75,12 @@ function initMap() {
 
         // Opens and bounces an infowindow for a marker when clicked upon.
         openInfoWindow = function(marker) {
-
             map.setCenter(marker.getPosition());
             map.setZoom(13);
-
             marker.setAnimation(google.maps.Animation.BOUNCE);
             setTimeout(function() {
                 marker.setAnimation(null);
             }, 2000);
-
             infowindow.setContent(marker.name);
             infowindow.open(map, marker);
         };

@@ -99,15 +99,6 @@ function initMap() {
                 alert("Failed to load Wikpedia Content");
             });
         };
-
-        $.ajax({
-            // ajax settings
-        }).done(function(data) {
-            // successful
-        }).fail(function(jqXHR, textStatus) {
-            // error handling
-        });
-
         // Open infowindow upon click
         this.addListener = google.maps.event.addListener(self.marker, 'click', function() {
             openInfoWindow(this);

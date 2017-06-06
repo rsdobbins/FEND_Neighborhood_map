@@ -10,7 +10,7 @@ Clone the GitHub repo and install the dependicies
 
     $ git clone https://github.com/rsdobbins/FEND_Neighborhood_map
     $ cd FEND_Neighborhod_map
-    $ bundle install
+    $ npm install
 
 # Gulp commands
 

@@ -80,13 +80,17 @@ function initMap() {
             var wikiUrl = 'https://en.wikipedia.org/wiki/' + marker.wikiID;
             //console.log(wikiSource);
             var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=1&exchars=150&titles=' + marker.wikiID + '&format=json&callback=wikiCallback';
+            var wikiError = setTimeout(function() {
+                $wikiExcerpt.text("Filed to load info");
+            }, 8000);
             $.ajax({
                 url: wikiUrl,
                 dataType: 'jsonp',
-                success: function(response) {
-                    //console.log(wikiUrl);
-                    var excerpt = response.query.pages[Object.keys(response.query.pages)[0]].extract;
-                    infowindow.setContent('<div><a href=' + marker.webUrl + '><h4 class="marker-name">' + marker.name + '</h4></a>' + excerpt + '<a href=' + wikiUrl + '>more</a><br><br>From ' + '<a href=' + wikiUrl + '>Wikipedia</a>, the free encyclopedia.' + '</div>');
+                success: function(data) {
+                    console.log(data);
+                    var excerpt = data.query.pages[Object.keys(data.query.pages)[0]].extract;
+                    infowindow.setContent('<div><a href=' + marker.webUrl + '><h4 class="marker-name">' + marker.name + '</h4></a><p id="wikiExcert">' + excerpt + '</p><a href=' + wikiUrl + '>more</a><br><br>From ' + '<a href=' + wikiUrl + '>Wikipedia</a>, the free encyclopedia.' + '</div>');
+                    clearTimeout(wikiError);
                 }
             })
         };

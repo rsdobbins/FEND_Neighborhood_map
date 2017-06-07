@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<title>FEND Neighborhod Map Project</title>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">b
+    <title>Intrawest Ski Reosrts | FEND Neighborhod Map Project</title>
+    <meta name="description" content="Single page Google maps application featuring 6 Intrawest Ski Resorts. With content from Wikipedia.">
+
     <!--build:css /css/styles.min.css-->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/style.css">
@@ -18,25 +21,26 @@
                 <div id="map"></div>
             </div>
             <div class="col-sm-3 fixed-mobile nopadding">
-              <form>
-                <input class="search-bar" placeholder="search" data-bind="value: filtered, valueUpdate: 'afterkeydown'" />
-                <ul id="list" data-bind="foreach: filteredResorts">
-                    <li data-bind="click: activeMapMarker" class="list-group-item">
-                        <p><span data-bind="text: name"></span>
-                        </p>
-                    </li>
-                </ul>
-                <input type="button" value="RESET MAP" data-bind="click: resetMarkers" />
-              </form>
+                <form>
+                    <input class="search-bar" placeholder="search" data-bind="value: filtered, valueUpdate: 'afterkeydown'" />
+                    <ul id="list" data-bind="foreach: filteredResorts">
+                        <li data-bind="click: activeMapMarker" class="list-group-item">
+                            <p><span data-bind="text: name"></span>
+                            </p>
+                        </li>
+                    </ul>
+                    <input type="button" value="RESET MAP" data-bind="click: resetMarkers" />
+                </form>
             </div>
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-        <!--build:js /js/main.min.js -->
-        <script src="/js/bootstrap.min.js" async></script>
-        <script src="/js/knockout-3.4.2.js" async></script>
-        <script src="/js/app.js" async></script>
-        <!-- endbuild -->
-        <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmr2VhYjW7IinmEhlT--f0X-_V6r5GAq0&callback=initMap" onerror="googleError()"></script>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!--build:js /js/main.min.js -->
+    <script src="/js/bootstrap.min.js" async></script>
+    <script src="/js/knockout-3.4.2.js" async></script>
+    <script src="/js/app.js" async></script>
+    <!-- endbuild -->
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmr2VhYjW7IinmEhlT--f0X-_V6r5GAq0&callback=initMap" onerror="googleError()"></script>
 </body>
 
 </html>

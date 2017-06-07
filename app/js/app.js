@@ -44,79 +44,79 @@ viewModel.filteredResorts = ko.computed(function() {
 }, viewModel);
 //load google map
 function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 5,
-        center: new google.maps.LatLng(38.941834, -89.532451),
-        mapTypeId: google.maps.MapTypeId.ROAD,
-    });
-    //custom map markers
-    var iconMtn = {
-        url: '/img/icon_mtn.png',
-        size: new google.maps.Size(32, 22),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(0, 22)
-    };
-    var infowindow = new google.maps.InfoWindow({});
-    for (var i = 0; i < viewModel.resorts.length; i++) {
-        var self = viewModel.resorts[i];
-        viewModel.resorts[i].marker = new google.maps.Marker({
-            position: new google.maps.LatLng(self.lng, self.lat),
-            map: map,
-            animation: google.maps.Animation.DROP,
-            icon: iconMtn,
-            name: self.name,
-            wikiID: self.wikiID,
-            webUrl: self.webUrl,
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 5,
+            center: new google.maps.LatLng(38.941834, -89.532451),
+            mapTypeId: google.maps.MapTypeId.ROAD,
         });
-        // Opens and bounces an infowindow for a marker when clicked upon.
-        openInfoWindow = function(marker) {
-            map.setCenter(marker.getPosition());
-            map.setZoom(13);
-            marker.setAnimation(google.maps.Animation.BOUNCE);
-            setTimeout(function() {
-                marker.setAnimation(null);
-            }, 2000);
-            infowindow.setContent(marker.name);
-            infowindow.open(map, marker);
-            var wikiSourceUrl = 'https://en.wikipedia.org/wiki/' + marker.wikiID;
-            //console.log(wikiSource);
-            wikiUrl = 'http://en.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=1&exchars=150&titles=' + marker.wikiID + '&format=json&callback=wikiCallback';
-            //wiki JSONP call referenced fro classwork
-            $.ajax({
-                url: wikiUrl,
-                dataType: 'jsonp',
-            }).done(function(data) {
-                console.log(data);
-                var excerpt = data.query.pages[Object.keys(data.query.pages)[0]].extract;
-                infowindow.setContent('<div><a href=' + marker.webUrl + '><h4>' + marker.name + '</h4></a><p id="wikiExcerpt">' + excerpt + '</p><a href=' + wikiSourceUrl + '>more</a><br><br>Source: ' + '<a href=' + wikiSourceUrl + '>Wikipedia</a>, the free encyclopedia.' + '</div>');
-            }).fail(function(jqXHR, textStatus) {
-                alert("Failed to load Wikpedia Content");
-            });
+        //custom map markers
+        var iconMtn = {
+            url: '/img/icon_mtn.png',
+            size: new google.maps.Size(32, 22),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(0, 22)
         };
-        // Open infowindow upon click
-        this.addListener = google.maps.event.addListener(self.marker, 'click', function() {
-            openInfoWindow(this);
-        });
-    }
-    //reset list and map bounds
-    this.resetMarkers = function(reset) {
-        this.filtered('');
-        infowindow.close();
+        var infowindow = new google.maps.InfoWindow({});
+        for (var i = 0; i < viewModel.resorts.length; i++) {
+            var self = viewModel.resorts[i];
+            viewModel.resorts[i].marker = new google.maps.Marker({
+                position: new google.maps.LatLng(self.lng, self.lat),
+                map: map,
+                animation: google.maps.Animation.DROP,
+                icon: iconMtn,
+                name: self.name,
+                wikiID: self.wikiID,
+                webUrl: self.webUrl,
+            });
+            // Opens and bounces an infowindow for a marker when clicked upon.
+            openInfoWindow = function(marker) {
+                map.setCenter(marker.getPosition());
+                map.setZoom(13);
+                marker.setAnimation(google.maps.Animation.BOUNCE);
+                setTimeout(function() {
+                    marker.setAnimation(null);
+                }, 2000);
+                infowindow.setContent(marker.name);
+                infowindow.open(map, marker);
+                var wikiSourceUrl = 'https://en.wikipedia.org/wiki/' + marker.wikiID;
+                //console.log(wikiSource);
+                wikiUrl = 'http://en.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=1&exchars=150&titles=' + marker.wikiID + '&format=json&callback=wikiCallback';
+                //wiki JSONP call referenced fro classwork
+                $.ajax({
+                    url: wikiUrl,
+                    dataType: 'jsonp',
+                }).done(function(data) {
+                    //console.log(data);
+                    var excerpt = data.query.pages[Object.keys(data.query.pages)[0]].extract;
+                    infowindow.setContent('<div><a href=' + marker.webUrl + '><h4>' + marker.name + '</h4></a><p id="wikiExcerpt">' + excerpt + '</p><a href=' + wikiSourceUrl + '>more</a><br><br>Source: ' + '<a href=' + wikiSourceUrl + '>Wikipedia</a>, the free encyclopedia.' + '</div>');
+                }).fail(function(jqXHR, textStatus) {
+                    alert("Failed to load Wikpedia Content");
+                });
+            };
+            // Open infowindow upon click
+            this.addListener = google.maps.event.addListener(self.marker, 'click', function() {
+                openInfoWindow(this);
+            });
+        }
+        //reset list and map bounds
+        this.resetMarkers = function(reset) {
+            this.filtered('');
+            infowindow.close();
+            map.fitBounds(bounds);
+        };
+        //Map bounds object
+        var bounds = new google.maps.LatLngBounds();
+        //Loop through an array of points, add them to bounds
+        for (i = 0; i < viewModel.resorts.length; i++) {
+            self = viewModel.resorts[i];
+            var geoCode = new google.maps.LatLng(self.lng, self.lat);
+            bounds.extend(geoCode);
+        }
+        //Add new bounds object to map
         map.fitBounds(bounds);
-    };
-    //Map bounds object
-    var bounds = new google.maps.LatLngBounds();
-    //Loop through an array of points, add them to bounds
-    for (i = 0; i < viewModel.resorts.length; i++) {
-        self = viewModel.resorts[i];
-        var geoCode = new google.maps.LatLng(self.lng, self.lat);
-        bounds.extend(geoCode);
+        ko.applyBindings(viewModel);
     }
-    //Add new bounds object to map
-    map.fitBounds(bounds);
-    ko.applyBindings(viewModel);
-}
-// Show alert when Google Maps request fails 
+    // Show alert when Google Maps request fails 
 function googleError() {
     alert("Map did not load");
 }

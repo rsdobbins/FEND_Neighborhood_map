@@ -1,6 +1,5 @@
 var map;
 var marker;
-var googleError;
 var markerPoint = function(name, lng, lat, wikiid, webUrl) {
     var self = this;
     this.name = name;
@@ -118,5 +117,5 @@ function initMap() {
     }
     // Show alert when Google Maps request fails 
 function googleError() {
-    alert("Map did not load");
+    alert("It appears that Google Map's failed not load. Please check your internet connectiona and try again.");
 }

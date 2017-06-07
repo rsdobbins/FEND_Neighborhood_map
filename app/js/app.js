@@ -74,7 +74,7 @@ function initMap() {
                 marker.setAnimation(google.maps.Animation.BOUNCE);
                 setTimeout(function() {
                     marker.setAnimation(null);
-                }, 2000);
+                }, 700);
                 infowindow.setContent(marker.name);
                 infowindow.open(map, marker);
                 var wikiSourceUrl = 'https://en.wikipedia.org/wiki/' + marker.wikiID;

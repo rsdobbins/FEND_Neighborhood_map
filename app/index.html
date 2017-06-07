@@ -17,21 +17,24 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-9 nopadding">
+
+            <main class="col-sm-9 nopadding">
                 <div id="map"></div>
-            </div>
-            <div class="col-sm-3 fixed-mobile nopadding">
+            </main>
+
+            <nav class="col-sm-3 fixed-mobile nopadding">
                 <form>
-                    <input class="search-bar" placeholder="search" data-bind="value: filtered, valueUpdate: 'afterkeydown'" />
+                    <input class="search-bar" placeholder="search" data-bind="value: filtered, valueUpdate: 'afterkeydown'" >
                     <ul id="list" data-bind="foreach: filteredResorts">
                         <li data-bind="click: activeMapMarker" class="list-group-item">
                             <p><span data-bind="text: name"></span>
                             </p>
                         </li>
                     </ul>
-                    <input type="button" class="reset-btn" value="RESET MAP" data-bind="click: resetMarkers" />
+                    <input type="button" class="reset-btn" value="RESET MAP" data-bind="click: resetMarkers" >
                 </form>
-            </div>
+            </nav>
+
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

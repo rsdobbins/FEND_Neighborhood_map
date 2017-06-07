@@ -1,7 +1,6 @@
 var map;
 var marker;
 var markerPoint = function(name, lng, lat, wikiid, webUrl) {
-    var self = this;
     this.name = name;
     this.lng = lng;
     this.lat = lat;

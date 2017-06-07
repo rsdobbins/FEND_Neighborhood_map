@@ -29,12 +29,12 @@ li.list-group-item {
 li.list-group-item:hover {
     color: #2da17d;
 }
-input#reset_state {
+.reset-btn {
     background-color: #2196F3;
     border: 0;
     color: #fff;
 }
-input#reset_state:hover {
+.reset-btn:hover {
     background-color: rgb(30, 133, 216);
 }
 @media screen and (max-width: 767px) {

@@ -1,29 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/css/styles.min.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">b
+    <title>Intrawest Ski Reosrts | FEND Neighborhod Map Project</title>
+    <meta name="description" content="Single page Google maps application featuring 6 Intrawest Ski Resorts. With content from Wikipedia.">
+
+    <link rel="stylesheet" href="/css/styles.min.css">
 </head>
-  <body>
+
+<body>
     <div class="container-fluid">
-      <div class="row">
-      <div class="col-sm-9 nopadding">
-    <div id="map"></div> 
-      </div>
-      <div class="col-sm-3 fixed-mobile nopadding">
-<input class="search-bar" placeholder="search" data-bind="value: filtered, valueUpdate: 'afterkeydown'" />
-<ul id="list" data-bind="foreach: filteredResorts">
-  <li data-bind="click: activeMapMarker" class="list-group-item">            
-                <p><span data-bind="text: name"></span></p>
-    </li>
-</ul>
-<input type="button" id="reset_state" value="RESET MAP" />
-      </div>
-      </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="/js/main.min.js"></script>
-<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmr2VhYjW7IinmEhlT--f0X-_V6r5GAq0&callback=initMap"></script>
-  </body>
+        <div class="row">
+            <div class="col-sm-9 nopadding">
+                <div id="map"></div>
+            </div>
+            <div class="col-sm-3 fixed-mobile nopadding">
+                <form>
+                    <input class="search-bar" placeholder="search" data-bind="value: filtered, valueUpdate: 'afterkeydown'" />
+                    <ul id="list" data-bind="foreach: filteredResorts">
+                        <li data-bind="click: activeMapMarker" class="list-group-item">
+                            <p><span data-bind="text: name"></span>
+                            </p>
+                        </li>
+                    </ul>
+                    <input type="button" class="reset-btn" value="RESET MAP" data-bind="click: resetMarkers" />
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/js/main.min.js"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmr2VhYjW7IinmEhlT--f0X-_V6r5GAq0&callback=initMap" onerror="googleError()"></script>
+</body>
+
 </html>

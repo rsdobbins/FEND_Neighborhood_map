@@ -15,7 +15,15 @@ var viewModel = {
         new markerPoint("Stratton Mountain Resort", 43.114917, -72.906929, "Stratton_Mountain_Resort", "https://www.stratton.com"),
         new markerPoint("Blue Mountain Resort", 44.504930, -80.309992, "Blue_Mountain_(ski_resort)", "https://www.bluemountain.ca"),
         new markerPoint("Tremblant Resort", 46.210167, -74.584993, "Mont_Tremblant_Resort", "https://www.tremblant.ca"),
-        new markerPoint("Steamboat Resort", 40.45669502741314, -106.80609941482544, "Steamboat_Ski_Resort", "https://www.steamboat.com")
+        new markerPoint("Steamboat Resort", 40.45669502741314, -106.80609941482544, "Steamboat_Ski_Resort", "https://www.steamboat.com"),
+        new markerPoint("Mammoth Mountain Resort", 37.630626, -119.032626, "Mammoth_Mountain_Ski_Area", "https://www.mammothmountain.com/"),
+        new markerPoint("June Mountain", 37.7683, -119.0906, "June_Mountain_ski_area", "https://www.junemountain.com/"),
+        new markerPoint("Bear Mountain Resort", 34.2267, -116.8602, "Bear_Mountain_(ski_area)", "https://www.bigbearmountainresort.com/"),
+        new markerPoint("Snow Summit Resort", 34.2286, -116.8911, "Snow_Summit", "https://www.bigbearmountainresort.com/"),
+        new markerPoint("Squaw Valley", 39.196, -120.235, "Squaw_Valley_Ski_Resort", "https://www.squawalpine.com/"),
+        new markerPoint("Alpine Meadows", 39.194, -120.239, "Alpine_Meadows_(ski_resort)", "https://www.squawalpine.com/"),
+        new markerPoint("Canadian Mountain Holidays", 51.1776678, -115.5726948, " ", "https://www.canadianmountainholidays.com/"),
+        
     ],
     //observable used for running filter against resorts array
     filtered: ko.observable(''),

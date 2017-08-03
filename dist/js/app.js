@@ -15,8 +15,7 @@ var viewModel = {
         new markerPoint("Stratton Mountain Resort", 43.114917, -72.906929, "Stratton_Mountain_Resort", "https://www.stratton.com"),
         new markerPoint("Blue Mountain Resort", 44.504930, -80.309992, "Blue_Mountain_(ski_resort)", "https://www.bluemountain.ca"),
         new markerPoint("Tremblant Resort", 46.210167, -74.584993, "Mont_Tremblant_Resort", "https://www.tremblant.ca"),
-        new markerPoint("Steamboat Resort", 40.45669502741314, -106.80609941482544, "Steamboat_Ski_Resort", "https://www.steamboat.com"),
-        new markerPoint("Mammoth Mountain Resort", 37.630626, -119.032626, "Mammoth_Mountain", "https://www.mammothmountain.com/")
+        new markerPoint("Steamboat Resort", 40.45669502741314, -106.80609941482544, "Steamboat_Ski_Resort", "https://www.steamboat.com")
     ],
     //observable used for running filter against resorts array
     filtered: ko.observable(''),
